@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="https://ywsa-dev.github.io/favicon.png" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ywsa_</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.013) 2px,
+      rgba(255,255,255,0.013) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 2rem;
+  }
+
+  .text-block {
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #headline {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    transition: color 0.6s ease;
+    white-space: nowrap;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 260px;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    border: 1.5px solid rgba(255,255,255,0.85);
+    background: transparent;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    border-radius: 0;
+  }
+
+  .btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: #fff;
+  }
+
+  .footer-text {
+    color: rgba(255,255,255,0.45);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    text-align: center;
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: currentColor;
+    margin-left: 3px;
+    vertical-align: -0.1em;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="text-block">
+    <span id="headline">Hello. I'm ywsa_.<span class="cursor"></span></span>
+  </div>
+
+  <div class="buttons">
+    <a class="btn" href="https://ywsa-dev.github.io/milon" target="_blank" rel="noopener">milon</a>
+    <a class="btn" href="https://playentry.org/profile/699c5bfab180b89204787c3f/project?sort=created&term=all&isOpen=all" target="_blank" rel="noopener">entry my page</a>
+    <a class="btn" href="https://raw.githubusercontent.com/ywsa-dev/s/refs/heads/main/s.js" target="_blank" rel="noopener">entry s block</a>
+    <a class="btn" href="https://os-lang.com" target="_blank" rel="noopener">os script</a>
+  </div>
+
+  <div class="footer-text">
+    html<br>github
+  </div>
+</div>
+
+<script>
+  const lines = [
+    { text: "Hello. I'm ywsa_.", color: "#ffffff" },
+    { text: "Hello. I'm ywsa_.", color: "#ffffff" },
+    { text: "I am 12 years old.", color: "#a8e6b0" },
+    { text: "I am 12 years old.", color: "#a8e6b0" },
+    { text: "I am 12 years old.", color: "#a8e6b0" },
+    { text: "I am from Korea.", color: "#f4a8c7" },
+    { text: "I am from Korea.", color: "#f4a8c7" },
+    { text: "I am from Korea.", color: "#f4a8c7" },
+  ];
+
+  let idx = 0;
+  const el = document.getElementById('headline');
+
+  function update() {
+    const line = lines[idx];
+    el.style.color = line.color;
+    const cursor = el.querySelector('.cursor');
+    cursor.style.background = line.color;
+    el.childNodes[0].textContent = line.text;
+    idx = (idx + 1) % lines.length;
+  }
+
+  setInterval(update, 1500);
+</script>
+</body>
+</html>
