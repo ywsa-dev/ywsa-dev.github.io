@@ -1,0 +1,23 @@
+[ OSBuilder Terms of Service and License Agreement ]
+
+This program (hereinafter referred to as 'OSBuilder') is an automated build tool that compiles and processes user-provided source code (e.g., kernel.cpp) to generate a bootable operating system image (.iso). Please read the following terms carefully before installing and using this program. Installing the program constitutes your agreement to these terms.
+
+1. Grant of License and Purpose
+- This program may be freely used solely for personal research, educational purposes, system development, and operating system development practice.
+
+2. Copyright
+- All rights and copyrights to the OSBuilder program itself belong to the developer (Yunwoo).
+- However, the rights to the resulting build output (.iso file) and the source code entered by the user (.cpp, etc.) belong entirely to the user.
+
+3. Complete Disclaimer for Build Outputs (Crucial)
+- This program is merely a 'build tool' that compiles and processes the source code as provided by the user.
+- If the resulting output turns out to be faulty, contains critical bugs, fails to boot, or damages the system (virtual machines or physical PCs) due to issues within the user-written code, the user bears full responsibility. The program developer (Yunwoo) shall not be held liable for any "malfunctioning or destructive" outputs.
+
+4. Prohibition of Malicious Use and Limitation of Liability
+- Users are strictly prohibited from using this program to build malicious code, including destructive programs, viruses, ransomware, or system disruption tools.
+- If a user misuses this program to build dangerous or illegal source code and subsequently distributes or executes it, any resulting legal or material consequences are entirely the user's responsibility. The developer cannot be held liable under any circumstances.
+
+5. Restriction on Modification
+- Users may not modify, reverse engineer, or redistribute the binary files of this program for malicious purposes.
+
+Thank you.
