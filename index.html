@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +10,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #0a0a0a;
+    background: #05050a;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -21,7 +21,22 @@
     position: relative;
   }
 
+  /* faint moving grid */
   body::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    background-image:
+      linear-gradient(rgba(120,160,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,160,255,0.06) 1px, transparent 1px);
+    background-size: 42px 42px;
+    animation: driftGrid 18s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* scanline texture */
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
@@ -29,11 +44,34 @@
       0deg,
       transparent,
       transparent 2px,
-      rgba(255,255,255,0.013) 2px,
-      rgba(255,255,255,0.013) 4px
+      rgba(255,255,255,0.02) 2px,
+      rgba(255,255,255,0.02) 4px
     );
     pointer-events: none;
+    z-index: 2;
+  }
+
+  @keyframes driftGrid {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(42px, 42px); }
+  }
+
+  .glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 700px;
+    height: 700px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(120,160,255,0.10) 0%, rgba(120,160,255,0) 70%);
+    pointer-events: none;
     z-index: 0;
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
   }
 
   .container {
@@ -60,8 +98,23 @@
     font-weight: 700;
     letter-spacing: 0.04em;
     color: #fff;
-    transition: color 0.6s ease;
+    text-shadow: 0 0 18px currentColor;
+    transition: color 0.6s ease, text-shadow 0.6s ease;
     white-space: nowrap;
+    position: relative;
+  }
+
+  #headline.glitch {
+    animation: glitch 0.25s steps(2, end) 2;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); text-shadow: 2px 0 #f4a8c7, -2px 0 #a8e6b0; }
+    80% { transform: translate(1px, -2px); }
+    100% { transform: translate(0); text-shadow: 0 0 18px currentColor; }
   }
 
   .buttons {
@@ -75,8 +128,8 @@
     display: block;
     width: 100%;
     padding: 14px 0;
-    border: 1.5px solid rgba(255,255,255,0.85);
-    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.02);
     color: #fff;
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.95rem;
@@ -85,22 +138,49 @@
     text-decoration: none;
     text-transform: lowercase;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.25s ease, border-color 0.25s ease, letter-spacing 0.25s ease, box-shadow 0.25s ease;
     border-radius: 0;
   }
 
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(120,160,255,0.35), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+
   .btn:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: #fff;
+    color: #fff;
+    border-color: #7aa0ff;
+    letter-spacing: 0.18em;
+    box-shadow: 0 0 16px rgba(120,160,255,0.35);
+  }
+
+  .btn:hover::before {
+    transform: translateX(100%);
+  }
+
+  .btn span {
+    position: relative;
+    z-index: 1;
   }
 
   .footer-text {
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.4);
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.75rem;
     text-align: center;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     line-height: 1.9;
+  }
+
+  .footer-text .dot {
+    color: #7aa0ff;
+    animation: blink 1.6s step-end infinite;
   }
 
   .cursor {
@@ -121,20 +201,22 @@
 </head>
 <body>
 
+<div class="glow"></div>
+
 <div class="container">
   <div class="text-block">
     <span id="headline">Hello. I'm ywsa-dev.<span class="cursor"></span></span>
   </div>
 
   <div class="buttons">
-    <a class="btn" href="https://os-lang.com" target="_blank" rel="noopener">os script</a>
-    <a class="btn" href="https://ywsa-dev.github.io/OSBuilder" target="_blank" rel="noopener">OSbuilder</a>
-    <a class="btn" href="https://github.com/ywsa-dev/Ygame" target="_blank" rel="noopener">Ygame</a>
-    <a class="btn" href="https://github.com/ywsa-dev/codecraftX" target="_blank" rel="noopener">Code craft X</a>
+    <a class="btn" href="https://os-lang.com" target="_blank" rel="noopener"><span>os script</span></a>
+    <a class="btn" href="https://ywsa-dev.github.io/OSBuilder" target="_blank" rel="noopener"><span>OSbuilder</span></a>
+    <a class="btn" href="https://github.com/ywsa-dev/Ygame" target="_blank" rel="noopener"><span>Ygame</span></a>
+    <a class="btn" href="https://github.com/ywsa-dev/codecraftX" target="_blank" rel="noopener"><span>Code craft X</span></a>
   </div>
 
   <div class="footer-text">
-    html<br>github page
+    html<span class="dot">.</span>github page
   </div>
 </div>
 
@@ -155,6 +237,8 @@
 
   function update() {
     const line = lines[idx];
+    el.classList.add('glitch');
+    setTimeout(() => el.classList.remove('glitch'), 250);
     el.style.color = line.color;
     const cursor = el.querySelector('.cursor');
     cursor.style.background = line.color;
